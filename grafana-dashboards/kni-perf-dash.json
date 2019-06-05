@@ -1,0 +1,2833 @@
+{
+	"annotations": {
+		"list": [
+			{
+				"builtIn": 1,
+				"datasource": "-- Grafana --",
+				"enable": true,
+				"hide": true,
+				"iconColor": "rgba(0, 211, 255, 1)",
+				"name": "Annotations & Alerts",
+				"type": "dashboard"
+			}
+		]
+	},
+	"description": "Performance dashboard for Red Hat - RHHI.next",
+	"editable": true,
+	"gnetId": 10092,
+	"graphTooltip": 0,
+	"id": 6,
+	"iteration": 1557771037454,
+	"links": [],
+	"panels": [
+		{
+			"aliasColors": {
+				"Busy": "#EAB839",
+				"Busy Iowait": "#890F02",
+				"Busy other": "#1F78C1",
+				"Idle": "#052B51",
+				"Idle - Waiting for something to happen": "#052B51",
+				"guest": "#9AC48A",
+				"idle": "#052B51",
+				"iowait": "#EAB839",
+				"irq": "#BF1B00",
+				"nice": "#C15C17",
+				"softirq": "#E24D42",
+				"steal": "#FCE2DE",
+				"system": "#508642",
+				"user": "#5195CE"
+			},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"datasource": "Cluster Prometheus",
+			"decimals": 2,
+			"description": "Basic CPU info",
+			"fill": 4,
+			"gridPos": {
+				"h": 8,
+				"w": 8,
+				"x": 0,
+				"y": 0
+			},
+			"id": 45,
+			"legend": {
+				"alignAsTable": false,
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"rightSide": false,
+				"show": true,
+				"sideWidth": 250,
+				"sort": null,
+				"sortDesc": null,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"maxPerRow": 6,
+			"nullPointMode": "null",
+			"percentage": true,
+			"pointradius": 5,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [
+				{
+					"alias": "Busy Iowait",
+					"color": "#890F02"
+				},
+				{
+					"alias": "Idle",
+					"color": "#7EB26D"
+				},
+				{
+					"alias": "Busy System",
+					"color": "#EAB839"
+				},
+				{
+					"alias": "Busy User",
+					"color": "#0A437C"
+				},
+				{
+					"alias": "Busy Other",
+					"color": "#6D1F62"
+				}
+			],
+			"spaceLength": 10,
+			"stack": true,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode=\"system\",instance=~\"192.168.111.20:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "Busy System",
+					"refId": "B",
+					"step": 240
+				},
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode='user',instance=~\"192.168.111.20:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "Busy User",
+					"refId": "D",
+					"step": 240
+				},
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode='iowait',instance=~\"192.168.111.20:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Busy Iowait",
+					"refId": "E",
+					"step": 240
+				},
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode=~\".*irq\",instance=~\"192.168.111.20:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Busy IRQs",
+					"refId": "F",
+					"step": 240
+				},
+				{
+					"expr": "sum (rate(node_cpu_seconds_total{mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq',instance=~\"192.168.111.20:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Busy Other",
+					"refId": "A",
+					"step": 240
+				},
+				{
+					"expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='idle',instance=~\"192.168.111.20:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Idle",
+					"refId": "C",
+					"step": 240
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "CPU Basic : Master-0",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": "",
+					"logBase": 1,
+					"max": "100",
+					"min": "0",
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": false
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {
+				"Busy": "#EAB839",
+				"Busy Iowait": "#890F02",
+				"Busy other": "#1F78C1",
+				"Idle": "#052B51",
+				"Idle - Waiting for something to happen": "#052B51",
+				"guest": "#9AC48A",
+				"idle": "#052B51",
+				"iowait": "#EAB839",
+				"irq": "#BF1B00",
+				"nice": "#C15C17",
+				"softirq": "#E24D42",
+				"steal": "#FCE2DE",
+				"system": "#508642",
+				"user": "#5195CE"
+			},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"datasource": "Cluster Prometheus",
+			"decimals": 2,
+			"description": "Basic CPU info",
+			"fill": 4,
+			"gridPos": {
+				"h": 8,
+				"w": 8,
+				"x": 8,
+				"y": 0
+			},
+			"id": 46,
+			"legend": {
+				"alignAsTable": false,
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"rightSide": false,
+				"show": true,
+				"sideWidth": 250,
+				"sort": null,
+				"sortDesc": null,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"maxPerRow": 6,
+			"nullPointMode": "null",
+			"percentage": true,
+			"pointradius": 5,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [
+				{
+					"alias": "Busy Iowait",
+					"color": "#890F02"
+				},
+				{
+					"alias": "Idle",
+					"color": "#7EB26D"
+				},
+				{
+					"alias": "Busy System",
+					"color": "#EAB839"
+				},
+				{
+					"alias": "Busy User",
+					"color": "#0A437C"
+				},
+				{
+					"alias": "Busy Other",
+					"color": "#6D1F62"
+				}
+			],
+			"spaceLength": 10,
+			"stack": true,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode=\"system\",instance=~\"192.168.111.21:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "Busy System",
+					"refId": "B",
+					"step": 240
+				},
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode='user',instance=~\"192.168.111.21:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "Busy User",
+					"refId": "D",
+					"step": 240
+				},
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode='iowait',instance=~\"192.168.111.21:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Busy Iowait",
+					"refId": "E",
+					"step": 240
+				},
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode=~\".*irq\",instance=~\"192.168.111.21:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Busy IRQs",
+					"refId": "F",
+					"step": 240
+				},
+				{
+					"expr": "sum (rate(node_cpu_seconds_total{mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq',instance=~\"192.168.111.21:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Busy Other",
+					"refId": "A",
+					"step": 240
+				},
+				{
+					"expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='idle',instance=~\"192.168.111.21:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Idle",
+					"refId": "C",
+					"step": 240
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "CPU Basic : Master-1",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": "",
+					"logBase": 1,
+					"max": "100",
+					"min": "0",
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": false
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {
+				"Busy": "#EAB839",
+				"Busy Iowait": "#890F02",
+				"Busy other": "#1F78C1",
+				"Idle": "#052B51",
+				"Idle - Waiting for something to happen": "#052B51",
+				"guest": "#9AC48A",
+				"idle": "#052B51",
+				"iowait": "#EAB839",
+				"irq": "#BF1B00",
+				"nice": "#C15C17",
+				"softirq": "#E24D42",
+				"steal": "#FCE2DE",
+				"system": "#508642",
+				"user": "#5195CE"
+			},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"datasource": "Cluster Prometheus",
+			"decimals": 2,
+			"description": "Basic CPU info",
+			"fill": 4,
+			"gridPos": {
+				"h": 8,
+				"w": 8,
+				"x": 16,
+				"y": 0
+			},
+			"id": 47,
+			"legend": {
+				"alignAsTable": false,
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"rightSide": false,
+				"show": true,
+				"sideWidth": 250,
+				"sort": null,
+				"sortDesc": null,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"maxPerRow": 6,
+			"nullPointMode": "null",
+			"percentage": true,
+			"pointradius": 5,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [
+				{
+					"alias": "Busy Iowait",
+					"color": "#890F02"
+				},
+				{
+					"alias": "Idle",
+					"color": "#7EB26D"
+				},
+				{
+					"alias": "Busy System",
+					"color": "#EAB839"
+				},
+				{
+					"alias": "Busy User",
+					"color": "#0A437C"
+				},
+				{
+					"alias": "Busy Other",
+					"color": "#6D1F62"
+				}
+			],
+			"spaceLength": 10,
+			"stack": true,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode=\"system\",instance=~\"192.168.111.22:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "Busy System",
+					"refId": "B",
+					"step": 240
+				},
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode='user',instance=~\"192.168.111.22:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "Busy User",
+					"refId": "D",
+					"step": 240
+				},
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode='iowait',instance=~\"192.168.111.22:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Busy Iowait",
+					"refId": "E",
+					"step": 240
+				},
+				{
+					"expr": "sum by (instance)(rate(node_cpu_seconds_total{mode=~\".*irq\",instance=~\"192.168.111.22:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Busy IRQs",
+					"refId": "F",
+					"step": 240
+				},
+				{
+					"expr": "sum (rate(node_cpu_seconds_total{mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq',instance=~\"192.168.111.22:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Busy Other",
+					"refId": "A",
+					"step": 240
+				},
+				{
+					"expr": "sum by (mode)(rate(node_cpu_seconds_total{mode='idle',instance=~\"192.168.111.22:9100\",job=~\".*\"}[1m])) * 100",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "Idle",
+					"refId": "C",
+					"step": 240
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "CPU Basic : Master-2",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": "",
+					"logBase": 1,
+					"max": "100",
+					"min": "0",
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": false
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {
+				"Apps": "#629E51",
+				"Buffers": "#614D93",
+				"Cache": "#6D1F62",
+				"Cached": "#511749",
+				"Committed": "#508642",
+				"Free": "#0A437C",
+				"Harware Corrupted - Amount of RAM that the kernel identified as corrupted / not working": "#CFFAFF",
+				"Inactive": "#584477",
+				"PageTables": "#0A50A1",
+				"Page_Tables": "#0A50A1",
+				"RAM_Free": "#E0F9D7",
+				"SWAP Used": "#BF1B00",
+				"Slab": "#806EB7",
+				"Slab_Cache": "#E0752D",
+				"Swap": "#BF1B00",
+				"Swap Used": "#BF1B00",
+				"Swap_Cache": "#C15C17",
+				"Swap_Free": "#2F575E",
+				"Unused": "#EAB839"
+			},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"datasource": "Cluster Prometheus",
+			"decimals": 2,
+			"description": "Basic memory usage",
+			"fill": 4,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 0,
+				"y": 8
+			},
+			"id": 49,
+			"legend": {
+				"alignAsTable": false,
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"rightSide": false,
+				"show": true,
+				"sideWidth": 350,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"maxPerRow": 6,
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 5,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [
+				{
+					"alias": "RAM Total",
+					"color": "#E0F9D7",
+					"fill": 0,
+					"stack": false
+				},
+				{
+					"alias": "RAM Cache + Buffer",
+					"color": "#052B51"
+				},
+				{
+					"alias": "RAM Free",
+					"color": "#7EB26D"
+				},
+				{
+					"alias": "Avaliable",
+					"color": "#DEDAF7",
+					"fill": 0,
+					"stack": false
+				}
+			],
+			"spaceLength": 10,
+			"stack": true,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "node_memory_MemTotal_bytes{instance=~\"192.168.111.20:9100\",job=~\".*\"}",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "RAM Total",
+					"refId": "A",
+					"step": 240
+				},
+				{
+					"expr": "node_memory_MemTotal_bytes{instance=~\"192.168.111.20:9100\",job=~\".*\"} - node_memory_MemFree_bytes{instance=~\"192.168.111.20:9100\",job=~\".*\"} - (node_memory_Cached_bytes{instance=~\"192.168.111.20:9100\",job=~\".*\"} + node_memory_Buffers_bytes{instance=~\"192.168.111.20:9100\",job=~\".*\"})",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "RAM Used",
+					"refId": "D",
+					"step": 240
+				},
+				{
+					"expr": "node_memory_Cached_bytes{instance=~\"192.168.111.20:9100\",job=~\".*\"} + node_memory_Buffers_bytes{instance=~\"192.168.111.20:9100\",job=~\".*\"}",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "RAM Cache + Buffer",
+					"refId": "B",
+					"step": 240
+				},
+				{
+					"expr": "node_memory_MemFree_bytes{instance=~\"192.168.111.20:9100\",job=~\".*\"}",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "RAM Free",
+					"refId": "F",
+					"step": 240
+				},
+				{
+					"expr": "(node_memory_SwapTotal_bytes{instance=~\"192.168.111.20:9100\",job=~\".*\"} - node_memory_SwapFree_bytes{instance=~\"192.168.111.20:9100\",job=~\".*\"})",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "SWAP Used",
+					"refId": "G",
+					"step": 240
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Memory Basic : Master-0",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "bytes",
+					"label": "",
+					"logBase": 1,
+					"max": null,
+					"min": "0",
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": false
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {
+				"Apps": "#629E51",
+				"Buffers": "#614D93",
+				"Cache": "#6D1F62",
+				"Cached": "#511749",
+				"Committed": "#508642",
+				"Free": "#0A437C",
+				"Harware Corrupted - Amount of RAM that the kernel identified as corrupted / not working": "#CFFAFF",
+				"Inactive": "#584477",
+				"PageTables": "#0A50A1",
+				"Page_Tables": "#0A50A1",
+				"RAM_Free": "#E0F9D7",
+				"SWAP Used": "#BF1B00",
+				"Slab": "#806EB7",
+				"Slab_Cache": "#E0752D",
+				"Swap": "#BF1B00",
+				"Swap Used": "#BF1B00",
+				"Swap_Cache": "#C15C17",
+				"Swap_Free": "#2F575E",
+				"Unused": "#EAB839"
+			},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"datasource": "Cluster Prometheus",
+			"decimals": 2,
+			"description": "Basic memory usage",
+			"fill": 4,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 8,
+				"y": 8
+			},
+			"id": 50,
+			"legend": {
+				"alignAsTable": false,
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"rightSide": false,
+				"show": true,
+				"sideWidth": 350,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"maxPerRow": 6,
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 5,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [
+				{
+					"alias": "RAM Total",
+					"color": "#E0F9D7",
+					"fill": 0,
+					"stack": false
+				},
+				{
+					"alias": "RAM Cache + Buffer",
+					"color": "#052B51"
+				},
+				{
+					"alias": "RAM Free",
+					"color": "#7EB26D"
+				},
+				{
+					"alias": "Avaliable",
+					"color": "#DEDAF7",
+					"fill": 0,
+					"stack": false
+				}
+			],
+			"spaceLength": 10,
+			"stack": true,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "node_memory_MemTotal_bytes{instance=~\"192.168.111.21:9100\",job=~\".*\"}",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "RAM Total",
+					"refId": "A",
+					"step": 240
+				},
+				{
+					"expr": "node_memory_MemTotal_bytes{instance=~\"192.168.111.21:9100\",job=~\".*\"} - node_memory_MemFree_bytes{instance=~\"192.168.111.21:9100\",job=~\".*\"} - (node_memory_Cached_bytes{instance=~\"192.168.111.21:9100\",job=~\".*\"} + node_memory_Buffers_bytes{instance=~\"192.168.111.21:9100\",job=~\".*\"})",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "RAM Used",
+					"refId": "D",
+					"step": 240
+				},
+				{
+					"expr": "node_memory_Cached_bytes{instance=~\"192.168.111.21:9100\",job=~\".*\"} + node_memory_Buffers_bytes{instance=~\"192.168.111.21:9100\",job=~\".*\"}",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "RAM Cache + Buffer",
+					"refId": "B",
+					"step": 240
+				},
+				{
+					"expr": "node_memory_MemFree_bytes{instance=~\"192.168.111.21:9100\",job=~\".*\"}",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "RAM Free",
+					"refId": "F",
+					"step": 240
+				},
+				{
+					"expr": "(node_memory_SwapTotal_bytes{instance=~\"192.168.111.21:9100\",job=~\".*\"} - node_memory_SwapFree_bytes{instance=~\"192.168.111.21:9100\",job=~\".*\"})",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "SWAP Used",
+					"refId": "G",
+					"step": 240
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Memory Basic : Master-1",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "bytes",
+					"label": "",
+					"logBase": 1,
+					"max": null,
+					"min": "0",
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": false
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {
+				"Apps": "#629E51",
+				"Buffers": "#614D93",
+				"Cache": "#6D1F62",
+				"Cached": "#511749",
+				"Committed": "#508642",
+				"Free": "#0A437C",
+				"Harware Corrupted - Amount of RAM that the kernel identified as corrupted / not working": "#CFFAFF",
+				"Inactive": "#584477",
+				"PageTables": "#0A50A1",
+				"Page_Tables": "#0A50A1",
+				"RAM_Free": "#E0F9D7",
+				"SWAP Used": "#BF1B00",
+				"Slab": "#806EB7",
+				"Slab_Cache": "#E0752D",
+				"Swap": "#BF1B00",
+				"Swap Used": "#BF1B00",
+				"Swap_Cache": "#C15C17",
+				"Swap_Free": "#2F575E",
+				"Unused": "#EAB839"
+			},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"datasource": "Cluster Prometheus",
+			"decimals": 2,
+			"description": "Basic memory usage",
+			"fill": 4,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 16,
+				"y": 8
+			},
+			"id": 51,
+			"legend": {
+				"alignAsTable": false,
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"rightSide": false,
+				"show": true,
+				"sideWidth": 350,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"maxPerRow": 6,
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 5,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [
+				{
+					"alias": "RAM Total",
+					"color": "#E0F9D7",
+					"fill": 0,
+					"stack": false
+				},
+				{
+					"alias": "RAM Cache + Buffer",
+					"color": "#052B51"
+				},
+				{
+					"alias": "RAM Free",
+					"color": "#7EB26D"
+				},
+				{
+					"alias": "Avaliable",
+					"color": "#DEDAF7",
+					"fill": 0,
+					"stack": false
+				}
+			],
+			"spaceLength": 10,
+			"stack": true,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "node_memory_MemTotal_bytes{instance=~\"192.168.111.22:9100\",job=~\".*\"}",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "RAM Total",
+					"refId": "A",
+					"step": 240
+				},
+				{
+					"expr": "node_memory_MemTotal_bytes{instance=~\"192.168.111.22:9100\",job=~\".*\"} - node_memory_MemFree_bytes{instance=~\"192.168.111.22:9100\",job=~\".*\"} - (node_memory_Cached_bytes{instance=~\"192.168.111.22:9100\",job=~\".*\"} + node_memory_Buffers_bytes{instance=~\"192.168.111.22:9100\",job=~\".*\"})",
+					"format": "time_series",
+					"hide": false,
+					"intervalFactor": 2,
+					"legendFormat": "RAM Used",
+					"refId": "D",
+					"step": 240
+				},
+				{
+					"expr": "node_memory_Cached_bytes{instance=~\"192.168.111.22:9100\",job=~\".*\"} + node_memory_Buffers_bytes{instance=~\"192.168.111.22:9100\",job=~\".*\"}",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "RAM Cache + Buffer",
+					"refId": "B",
+					"step": 240
+				},
+				{
+					"expr": "node_memory_MemFree_bytes{instance=~\"192.168.111.22:9100\",job=~\".*\"}",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "RAM Free",
+					"refId": "F",
+					"step": 240
+				},
+				{
+					"expr": "(node_memory_SwapTotal_bytes{instance=~\"192.168.111.22:9100\",job=~\".*\"} - node_memory_SwapFree_bytes{instance=~\"192.168.111.22:9100\",job=~\".*\"})",
+					"format": "time_series",
+					"intervalFactor": 2,
+					"legendFormat": "SWAP Used",
+					"refId": "G",
+					"step": 240
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Memory Basic : Master-2",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "bytes",
+					"label": "",
+					"logBase": 1,
+					"max": null,
+					"min": "0",
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": false
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 0,
+				"y": 15
+			},
+			"id": 57,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"rightSide": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "irate(node_disk_read_bytes_total{device=~\"nvme.*\",instance=\"192.168.111.20:9100\"}[1m])",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "master-0 - {{device}}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Disk IO : Master-0",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 8,
+				"y": 15
+			},
+			"id": 58,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"rightSide": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "irate(node_disk_read_bytes_total{device=~\"nvme.*\",instance=\"192.168.111.21:9100\"}[1m])",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "master-1 - {{device}}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Disk IO : Master-1",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 16,
+				"y": 15
+			},
+			"id": 59,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"rightSide": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "irate(node_disk_read_bytes_total{device=~\"nvme.*\",instance=\"192.168.111.22:9100\"}[1m])",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "master-2 - {{device}}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Disk IO : Master-2",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 0,
+				"y": 22
+			},
+			"id": 73,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "irate(node_network_receive_bytes_total{instance=\"192.168.111.20:9100\",device=~\"br.*|en.*\"}[5m])",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{device}}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Network Utilization : Master-0",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "Bps",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 8,
+				"y": 22
+			},
+			"id": 74,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "irate(node_network_receive_bytes_total{instance=\"192.168.111.21:9100\",device=~\"br.*|en.*\"}[5m])",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{device}}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Network Utilization : Master-1",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "Bps",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 16,
+				"y": 22
+			},
+			"id": 75,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "irate(node_network_receive_bytes_total{instance=\"192.168.111.22:9100\",device=~\"br.*|en.*\"}[5m])",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{device}}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Network Utilization : Master-2",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "Bps",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 0,
+				"y": 29
+			},
+			"id": 63,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 2,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "process_resident_memory_bytes{service=~\".*\",endpoint=~\".*\",instance=~\"192.168.111.20.*\"}",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{ service }} - {{ job }}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Process RSS : Master-0",
+			"tooltip": {
+				"shared": true,
+				"sort": 2,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "Bps",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 8,
+				"y": 29
+			},
+			"id": 64,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 2,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "process_resident_memory_bytes{service=~\".*\",endpoint=~\".*\",instance=~\"192.168.111.21.*\"}",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{ service }} - {{ job }}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Process RSS : Master-1",
+			"tooltip": {
+				"shared": true,
+				"sort": 2,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "Bps",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 16,
+				"y": 29
+			},
+			"id": 65,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 2,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "process_resident_memory_bytes{service=~\".*\",endpoint=~\".*\",instance=~\"192.168.111.22.*\"}",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{ service }} - {{ job }}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Process RSS : Master-2",
+			"tooltip": {
+				"shared": true,
+				"sort": 2,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "Bps",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"datasource": "Cluster Prometheus",
+			"fill": 1,
+			"gridPos": {
+				"h": 8,
+				"w": 8,
+				"x": 0,
+				"y": 36
+			},
+			"id": 61,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "container_memory_rss{pod_name=~\"rook-ceph-osd.*\",node=\"master-0\",container_name=\"osd\"}",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{pod_name}} - RSS",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "OSD Memory Usage : Master-0",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "Bps",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"datasource": "Cluster Prometheus",
+			"fill": 1,
+			"gridPos": {
+				"h": 8,
+				"w": 8,
+				"x": 8,
+				"y": 36
+			},
+			"id": 66,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "container_memory_rss{pod_name=~\"rook-ceph-osd.*\",node=\"master-1\",container_name=\"osd\"}",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{pod_name}} - RSS",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "OSD Memory Usage : Master-1",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "Bps",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"datasource": "Cluster Prometheus",
+			"fill": 1,
+			"gridPos": {
+				"h": 8,
+				"w": 8,
+				"x": 16,
+				"y": 36
+			},
+			"id": 67,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "container_memory_rss{pod_name=~\"rook-ceph-osd.*\",node=\"master-2\",container_name=\"osd\"}",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{pod_name}} - RSS",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "OSD Memory Usage : Master-2",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "Bps",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 0,
+				"y": 44
+			},
+			"id": 69,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"hideZero": true,
+				"max": true,
+				"min": true,
+				"show": true,
+				"total": false,
+				"values": true
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "irate(container_cpu_usage_seconds_total{node=\"master-0\"}[5m])",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{ pod_name }} - {{ service }}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "CPU Usage : Master-0",
+			"tooltip": {
+				"shared": true,
+				"sort": 2,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 8,
+				"y": 44
+			},
+			"id": 70,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"hideZero": true,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "irate(container_cpu_usage_seconds_total{node=\"master-1\"}[5m])",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{ pod_name }} - {{ service }}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "CPU Usage : Master-1",
+			"tooltip": {
+				"shared": true,
+				"sort": 2,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 7,
+				"w": 8,
+				"x": 16,
+				"y": 44
+			},
+			"id": 71,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"hideZero": true,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "irate(container_cpu_usage_seconds_total{node=\"master-2\"}[5m])",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{ pod_name }} - {{ service }}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "CPU  Usage : Master-2",
+			"tooltip": {
+				"shared": true,
+				"sort": 2,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"cacheTimeout": null,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 0,
+			"gridPos": {
+				"h": 8,
+				"w": 12,
+				"x": 0,
+				"y": 51
+			},
+			"id": 39,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "count(kube_persistentvolumeclaim_info)\n",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "PVC Count",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Number of PVCs",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 8,
+				"w": 12,
+				"x": 12,
+				"y": 51
+			},
+			"id": 55,
+			"legend": {
+				"alignAsTable": false,
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"rightSide": true,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "irate ( ceph_osd_op_r_in_bytes{ceph_daemon=~\"osd.*\"}[5m] ) ",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{ceph_daemon}} Read OPs",
+					"refId": "A"
+				},
+				{
+					"expr": "irate ( ceph_osd_op_w_in_bytes{ceph_daemon=~\"osd.*\"}[5m] ) ",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{ceph_daemon}} Write OPs",
+					"refId": "B"
+				},
+				{
+					"expr": "irate ( ceph_osd_op_r_in_bytes{ceph_daemon=~\"osd.*\"}[5m] )",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{ceph_daemon}} Read-modify-write  OPs",
+					"refId": "C"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Per-OSD Operations",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"fill": 1,
+			"gridPos": {
+				"h": 8,
+				"w": 12,
+				"x": 0,
+				"y": 59
+			},
+			"id": 43,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 2,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "sum by (container_name) (rate(container_cpu_usage_seconds_total{container_name=\"etcd-metrics\"}[1m]))",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{container_name}}",
+					"refId": "B"
+				},
+				{
+					"expr": "sum by (container_name) (rate(container_cpu_usage_seconds_total{container_name=\"etcd-member\"}[1m]))",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "{{container_name}}",
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "etcd cpu usage",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		},
+		{
+			"datasource": "Cluster Prometheus",
+			"gridPos": {
+				"h": 7,
+				"w": 12,
+				"x": 12,
+				"y": 59
+			},
+			"id": 37,
+			"links": [],
+			"options": {
+				"displayMode": "gradient",
+				"fieldOptions": {
+					"calcs": [
+						"last"
+					],
+					"defaults": {
+						"max": 100,
+						"min": 0
+					},
+					"mappings": [],
+					"override": {},
+					"thresholds": [
+						{
+							"color": "green",
+							"index": 0,
+							"value": null
+						},
+						{
+							"color": "red",
+							"index": 1,
+							"value": 80
+						}
+					],
+					"values": false
+				},
+				"orientation": "horizontal"
+			},
+			"targets": [
+				{
+					"expr": "sum(kube_pod_info{ node=\"master-0\"}) \n",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "master-0",
+					"refId": "A"
+				},
+				{
+					"expr": "sum(kube_pod_info{node=\"master-1\"})\n",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "master-1",
+					"refId": "B"
+				},
+				{
+					"expr": "sum(kube_pod_info{node=\"master-2\"})\n",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "master-2",
+					"refId": "C"
+				},
+				{
+					"expr": "sum(kube_pod_status_phase{phase=\"Running\"})",
+					"format": "time_series",
+					"interval": "",
+					"intervalFactor": 1,
+					"legendFormat": "Running",
+					"refId": "E"
+				},
+				{
+					"expr": "sum(kube_pod_status_phase{phase=\"Succeeded\"})",
+					"format": "time_series",
+					"interval": "",
+					"intervalFactor": 1,
+					"legendFormat": "Succeeded",
+					"refId": "F"
+				},
+				{
+					"expr": "sum(kube_pod_status_phase{phase=\"Failed\"})",
+					"format": "time_series",
+					"interval": "",
+					"intervalFactor": 1,
+					"legendFormat": "Failed",
+					"refId": "G"
+				},
+				{
+					"expr": "sum(kube_pod_info)",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"legendFormat": "Total",
+					"refId": "D"
+				}
+			],
+			"timeFrom": null,
+			"timeShift": null,
+			"title": "Pod Distribution",
+			"transparent": true,
+			"type": "bargauge"
+		},
+		{
+			"aliasColors": {},
+			"bars": false,
+			"dashLength": 10,
+			"dashes": false,
+			"datasource": "Cluster Prometheus",
+			"fill": 1,
+			"gridPos": {
+				"h": 6,
+				"w": 24,
+				"x": 0,
+				"y": 67
+			},
+			"id": 35,
+			"legend": {
+				"avg": false,
+				"current": false,
+				"max": false,
+				"min": false,
+				"show": true,
+				"total": false,
+				"values": false
+			},
+			"lines": true,
+			"linewidth": 1,
+			"links": [],
+			"nullPointMode": "null",
+			"percentage": false,
+			"pointradius": 5,
+			"points": false,
+			"renderer": "flot",
+			"seriesOverrides": [],
+			"spaceLength": 10,
+			"stack": false,
+			"steppedLine": false,
+			"targets": [
+				{
+					"expr": "100 * sum by(instance, job) (rate(rest_client_requests_total{code!~\"2..\"}[5m]))/ sum by(instance, job) (rate(rest_client_requests_total[5m]))",
+					"format": "time_series",
+					"intervalFactor": 1,
+					"refId": "A"
+				}
+			],
+			"thresholds": [],
+			"timeFrom": null,
+			"timeRegions": [],
+			"timeShift": null,
+			"title": "Failed Rest Client Request from KubeCTL",
+			"tooltip": {
+				"shared": true,
+				"sort": 0,
+				"value_type": "individual"
+			},
+			"transparent": true,
+			"type": "graph",
+			"xaxis": {
+				"buckets": null,
+				"mode": "time",
+				"name": null,
+				"show": true,
+				"values": []
+			},
+			"yaxes": [
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				},
+				{
+					"format": "short",
+					"label": null,
+					"logBase": 1,
+					"max": null,
+					"min": null,
+					"show": true
+				}
+			],
+			"yaxis": {
+				"align": false,
+				"alignLevel": null
+			}
+		}
+	],
+	"refresh": "10s",
+	"schemaVersion": 18,
+	"style": "dark",
+	"tags": [],
+	"templating": {
+		"list": []
+	},
+	"time": {
+		"from": "now-15m",
+		"to": "now"
+	},
+	"timepicker": {
+		"refresh_intervals": [
+			"5s",
+			"10s",
+			"30s",
+			"1m",
+			"5m",
+			"15m",
+			"30m",
+			"1h",
+			"2h",
+			"1d"
+		],
+		"time_options": [
+			"5m",
+			"15m",
+			"1h",
+			"6h",
+			"12h",
+			"24h",
+			"2d",
+			"7d",
+			"30d"
+		]
+	},
+	"timezone": "",
+	"title": "KNI Performance Dashbaord",
+	"uid": "KiF1Ti6mz",
+	"version": 54
+}
